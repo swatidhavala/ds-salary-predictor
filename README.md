@@ -4,7 +4,7 @@ An interactive Streamlit app that predicts Data Science salaries
 using a Weighted Ensemble of XGBoost, LightGBM and Gradient Boosting.
 
 ## 🚀 Live App
-> Add your Streamlit Cloud link here after deployment
+https://ds-salary-predictor-cvsgodagh6ngu3em7bresp.streamlit.app
 
 ## 📊 Features
 - **Predict** — Enter your profile and get an estimated salary
