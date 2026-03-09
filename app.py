@@ -657,10 +657,16 @@ with tab_shap:
     st.markdown('#### 🐝 Beeswarm — Feature Impact Direction')
     st.caption('Red = high feature value | Blue = low feature value | Right = increases salary')
 
+    base_val = explainer.expected_value
+    if hasattr(base_val, '__len__'):
+        base_val = float(base_val[0])
+    else:
+        base_val = float(base_val)
+
     shap_explanation = shap.Explanation(
-        values=shap_vals,
-        base_values=np.full(len(shap_vals), explainer.expected_value),
-        data=X_test.values,
+        values=shap_vals.astype(float),
+        base_values=np.full(len(shap_vals), base_val),
+        data=X_test.values.astype(float),
         feature_names=feature_cols
     )
 
@@ -679,10 +685,18 @@ with tab_shap:
 
     row_idx = st.slider('Test set row index', 0, len(X_test) - 1, 0)
 
+    base_val = explainer.expected_value
+
+    # Handle both scalar and array formats
+    if hasattr(base_val, '__len__'):
+        base_val = float(base_val[0])
+    else:
+        base_val = float(base_val)
+
     shap_exp_single = shap.Explanation(
-        values=shap_vals[row_idx],
-        base_values=explainer.expected_value,
-        data=X_test.iloc[row_idx],
+        values=shap_vals[row_idx].astype(float),
+        base_values=base_val,
+        data=X_test.iloc[row_idx].values.astype(float),
         feature_names=feature_cols
     )
 
